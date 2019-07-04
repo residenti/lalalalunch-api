@@ -1,10 +1,10 @@
 module Api
   module V1
     class RestaurantsController < ApplicationController
+      require 'net/https'
 
       # TODO
       # エラーハンドリング ERROR 用クラス作成する.
-      # base_url とかは config/ 配下で管理する.
       # https リクエストの処理もどこかにまとめる. lib/ 配下とか?
       # keyid は Git管理下から外して環境変数として読み込む.
       def show
@@ -23,7 +23,7 @@ module Api
           }
         )
 
-        uri = URI.parse("https://api.gnavi.co.jp/RestSearchAPI/v3/?#{params}") # URIを解析し、hostやportをバラバラに取得できるようにする
+        uri = URI.parse(File.join(CONSTANT[:base_url], "?#{params}")) # URIを解析し、hostやportをバラバラに取得できるようにする
 
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true # https通信を許可.

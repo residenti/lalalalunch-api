@@ -1,0 +1,11 @@
+common: &common
+  base_url: https://api.gnavi.co.jp/RestSearchAPI/v3/
+  message: This is application common setting
+
+development:
+  <<: *common
+  message: This is development environment setting
+
+production:
+  <<: *common
+  message: This is production environment setting
