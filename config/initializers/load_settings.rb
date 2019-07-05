@@ -2,7 +2,8 @@
 # config/constants.yml に定義した値を環境変数として読み込む.
 #
 
-file = "#{Rails.root}/config/settings.yml"
+settings_yml = File.join(Rails.root, "/config/settings.yml")
+secret_settings_yml = File.join(Rails.root, "/config/secret_settings.yml")
 
 def deep_freeze(hash)
 
@@ -12,4 +13,5 @@ def deep_freeze(hash)
 
 end
 
-SETTINGS = deep_freeze(YAML.load_file(file)[Rails.env].deep_symbolize_keys)
+SETTINGS = deep_freeze(YAML.load_file(settings_yml)[Rails.env].deep_symbolize_keys)
+SECRET_SETTINGS = deep_freeze(YAML.load_file(secret_settings_yml)[Rails.env].deep_symbolize_keys)

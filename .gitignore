@@ -31,3 +31,6 @@ vendor/
 
 # Ignore tags
 /tags
+
+# Ignore secret_settings
+/config/secret_settings.yml
