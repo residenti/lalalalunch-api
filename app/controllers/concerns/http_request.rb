@@ -3,14 +3,21 @@ module HttpRequest
 
   require 'net/https'
 
+  GNAVI_API_PARAMS = {
+    KEYID: SECRET_SETTINGS[:gnavi_keyid],
+    HIT_PER_PAGE: 100,
+    INPUT_COORDINATES_MODE: 1,
+    LUNCH: 1
+  }.freeze
+
   def get_request(latitude, longitude, range, late_lunch)
     # hash形式でパラメタ文字列を指定し、URL形式にエンコード
     params = URI.encode_www_form(
       {
-        keyid: SECRET_SETTINGS[:gnavi_keyid],
-        hit_per_page: 1,
-        input_coordinates_mode: 1,
-        lunch: 1,
+        keyid: GNAVI_API_PARAMS[:KEYID],
+        hit_per_page: GNAVI_API_PARAMS[:HIT_PER_PAGE],
+        input_coordinates_mode: GNAVI_API_PARAMS[:INPUT_COORDINATES_MODE],
+        lunch: GNAVI_API_PARAMS[:LUNCH],
         latitude: latitude,
         longitude: longitude,
         range: range,
