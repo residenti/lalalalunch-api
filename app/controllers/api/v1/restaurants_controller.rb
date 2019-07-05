@@ -23,7 +23,7 @@ module Api
           }
         )
 
-        uri = URI.parse(File.join(CONSTANT[:base_url], "?#{params}")) # URIを解析し、hostやportをバラバラに取得できるようにする
+        uri = URI.parse(File.join(SETTINGS[:base_url], "?#{params}")) # URIを解析し、hostやportをバラバラに取得できるようにする
 
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true # https通信を許可.
