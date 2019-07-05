@@ -10,7 +10,7 @@ module Api
       ]
 
       def show
-        res = get_request(35.726973099999995, 139.521121, 5, 1)
+        res = get_request(params[:latitude], params[:longitude], params[:range], params[:late_lunch])
 
         res_body_json = JSON.parse(res.body) #TODO 0件の時を考慮した処理.
 
