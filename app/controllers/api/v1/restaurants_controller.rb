@@ -1,10 +1,9 @@
 module Api
   module V1
-    class RestaurantsController < ApplicationController
+    class RestaurantsController < ApiController
       require 'net/https'
 
       # TODO
-      # エラーハンドリング ERROR 用クラス作成する.
       # https リクエストの処理もどこかにまとめる. lib/ 配下とか?
       def show
 
@@ -34,6 +33,9 @@ module Api
 
         render(status: :ok, json: { result: { status: 0 }, restaurant: restaurant })
 
+
+      # rescue ActiveRecord::RecordInvalid => e
+      #   raise ValidationError.new(errors ,e)
       end
 
     end
