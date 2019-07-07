@@ -9,6 +9,9 @@ module Api
         "holiday", "parking_lots", "pr", "lunch", "credit_card", "e_money"
       ]
 
+      # TODO
+      # クエリパラメーターが存在すること.
+      # res のハンドリング.
       def show
         res = get_request(params[:latitude], params[:longitude], params[:range], params[:late_lunch])
 
@@ -21,6 +24,33 @@ module Api
       # rescue ActiveRecord::RecordNotFound => e
       #   raise RecordNotFoundError.new('id' ,1)
       end
+
+      private
+
+        # TODO リファクタリング.
+        def check_params
+          missing_items = Array.new
+
+          if params[:latitude].blank?
+            missing_items.push("latitude")
+          end
+
+          if params[:longitude].blank?
+            missing_items.push("longitude")
+          end
+
+          if params[:range].blank?
+            missing_items.push("range")
+          end
+
+          if params[:late_lunch].blank?
+            missing_items.push("late_lunch")
+          end
+
+          return if missing_items.blank?
+
+          raise ParameterMissingError.new(missing_items)
+        end
 
     end
   end
