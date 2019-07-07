@@ -19,7 +19,7 @@ module Api
           error = ApiError.new
         end
 
-        render(json: error.create_response_body, status: error.response_http_status)
+        render(status: error.response_http_status, json: error.create_response_body)
       end
 
     end
