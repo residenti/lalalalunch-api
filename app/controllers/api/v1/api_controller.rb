@@ -65,6 +65,40 @@ module Api
 
     end
 
+    # TODO
+    # 設計からやり直す.
+    # パラメーター不足エラー.
+    class ParameterMissingError < ApiError
+
+      # コンストラクタ
+      # missing_items: 不足パラメーター.
+      def initialize(missing_items)
+        response_status = 1
+        response_message = create_response_message(missing_items)
+        super("[パラメーター不足エラー]", 400, response_status, response_message)
+      end
+
+      private
+
+        def create_response_message(missing_items)
+          missing_items.map do |missing_item|
+              case
+              when missing_item == "latitude"
+                { code: CODE[:MISSING_LATITUDE] }
+              when missing_item == "longitude"
+                { code: CODE[:MISSING_LONGITUDE] }
+              when missing_item == "range"
+                { code: CODE[:MISSING_RANGE] }
+              when missing_item == "late_lunch"
+                { code: CODE[:MISSING_LATE_LUNCH] }
+              else
+                nil # 本来はここに来ないはず.
+              end
+          end .select(&:present?)
+        end
+
+    end
+
     # バリデーションエラー.
     class ValidationError < ApiError
 

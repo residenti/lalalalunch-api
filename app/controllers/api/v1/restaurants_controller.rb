@@ -3,6 +3,8 @@ module Api
     class RestaurantsController < ApiController
       include HttpRequest
 
+      # before_action :check_params, only: [:show]
+
       KEY_LIST = [
         "name", "name_kana", "latitude", "longitude", "category", "url",
         "url_mobile", "coupon_url", "image_url", "address", "tel", "opentime",
@@ -28,23 +30,36 @@ module Api
       private
 
         # TODO リファクタリング.
+        # やろうとしていること自体を見直すべきな気がする...
         def check_params
           missing_items = Array.new
 
-          if params[:latitude].blank?
+          if !params.has_key?(:latitude)
             missing_items.push("latitude")
+          elsif params[:latitude].blank?
+            missing_items.push("latitude")
+          else
           end
 
-          if params[:longitude].blank?
+          if !params.has_key?(:longitude)
             missing_items.push("longitude")
+          elsif params[:longitude].blank?
+            missing_items.push("longitude")
+          else
           end
 
-          if params[:range].blank?
+          if !params.has_key?(:range)
             missing_items.push("range")
+          elsif params[:range].blank?
+            missing_items.push("range")
+          else
           end
 
-          if params[:late_lunch].blank?
+          if !params.has_key?(:late_lunch)
             missing_items.push("late_lunch")
+          elsif params[:late_lunch].blank?
+            missing_items.push("late_lunch")
+          else
           end
 
           return if missing_items.blank?
