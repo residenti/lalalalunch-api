@@ -51,7 +51,16 @@ module Api
       end
 
       def create_response_body
-        { result: { status: @response_status }, error: { message: @response_message, type: self.class.name.split('::').last, details: @response_errors } }
+        {
+          result: {
+            status: @response_status 
+          },
+          error: {
+            message: @response_message,
+            type: self.class.name.split('::').last,
+            details: @response_errors
+          }
+        }
       end
 
     end
@@ -78,30 +87,30 @@ module Api
 
       private
 
-      def create_response_errors(errors)
+        def create_response_errors(errors)
 
-        errors.messages.map do |key, error_array|
+          errors.messages.map do |key, error_array|
 
-          custom_error_array = error_array.map do |error|
-            case
-            when error == "を入力してください。"
-              {code: CODE[:REQUIRED]}
-            when m = error.match(/\Aは(\d+)文字以内で入力してください。\z/)
-              {code: CODE[:OVER_LENGTH], details: {maxlength: m[1]}}
-            when error == "形式が不正です" || error == "が正しくありません。"
-              {code: CODE[:INVALID_FORMAT]}
-            when error == "設定したいパスコードと確認用のパスコードが一致しません"
-              {code: CODE[:NOT_EQUAL_PASSCD]}
-            else
-              nil # 全てのバリデーションエラーに対応できていないのでスルー.
-            end
-          end .select(&:present?)
+            custom_error_array = error_array.map do |error|
+              case
+              when error == "を入力してください。"
+                {code: CODE[:REQUIRED]}
+              when m = error.match(/\Aは(\d+)文字以内で入力してください。\z/)
+                {code: CODE[:OVER_LENGTH], details: {maxlength: m[1]}}
+              when error == "形式が不正です" || error == "が正しくありません。"
+                {code: CODE[:INVALID_FORMAT]}
+              when error == "設定したいパスコードと確認用のパスコードが一致しません"
+                {code: CODE[:NOT_EQUAL_PASSCD]}
+              else
+                nil # 全てのバリデーションエラーに対応できていないのでスルー.
+              end
+            end .select(&:present?)
 
-          [key, custom_error_array]
+            [key, custom_error_array]
 
-        end .to_h
+          end .to_h
 
-      end
+        end
 
     end
 
