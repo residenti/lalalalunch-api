@@ -30,23 +30,28 @@ module Api
 
       # コンストラクタ
       # message: システム内でエラーの内容を把握するためのメッセージ.
+      # response_status: クライアントに返却するステータスコード.
       # response_http_status: クライアントに返却するHTTPステータス.
       # response_message: クライアントへ返却するレスポンスBodyのmessage要素なる文字列.
       # response_errors: クライアントへ返却するレスポンスBodyのerrors要素となるHashオブジェクト.
       def initialize(
         message = "[予期しないエラー]",
         response_http_status = 500,
+        response_status = 9,
         response_message = "An unexpected error occurred.",
         response_errors = nil
       )
+
         super(message)
+
         @response_http_status = response_http_status
+        @response_status = response_status
         @response_message = response_message
         @response_errors = response_errors
       end
 
       def create_response_body
-        { message: @response_message, type: self.class.name.split('::').last, errors: @response_errors }
+        { result: { status: @response_status }, error: { message: @response_message, type: self.class.name.split('::').last, details: @response_errors } }
       end
 
     end
@@ -66,8 +71,9 @@ module Api
       # e: ActiveRecord::RecordInvalid オブジェクト.
       def initialize(errors, e = nil)
         message = e.present? ? e.message : "[バリデーションエラー]"
+        response_status = 1
         response_errors = create_response_errors(errors)
-        super(message, 400, "Parameters is invalid", response_errors)
+        super(message, 400, response_status, "Parameters is invalid", response_errors)
       end
 
       private
@@ -109,7 +115,8 @@ module Api
       # e: ActiveRecord::RecordNotFound オブジェクト.
       def initialize(key, value, e = nil)
         message = e.present? ? e.message : "[レコード未検出エラー]"
-        super(message, 404, "[#{key} = #{value}] was not found.")
+        response_status = 1
+        super(message, 404, response_status, "[#{key} = #{value}] was not found.")
       end
 
     end
