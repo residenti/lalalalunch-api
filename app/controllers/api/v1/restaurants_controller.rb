@@ -18,8 +18,8 @@ module Api
 
         render(status: :ok, json: { result: { status: 0 }, restaurant: restaurant })
 
-      # rescue ActiveRecord::RecordInvalid => e
-      #   raise ValidationError.new(errors ,e)
+      # rescue ActiveRecord::RecordNotFound => e
+      #   raise RecordNotFoundError.new('id' ,1)
       end
 
     end
