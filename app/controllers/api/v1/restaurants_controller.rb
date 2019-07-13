@@ -3,7 +3,7 @@ module Api
     class RestaurantsController < ApiController
       include HttpRequest
 
-      # before_action :check_params, only: [:show]
+      before_action :check_params, only: [:show]
 
       KEY_LIST = [
         "name", "name_kana", "latitude", "longitude", "category", "url",
@@ -12,12 +12,11 @@ module Api
       ]
 
       # TODO
-      # クエリパラメーターが存在すること.
-      # res のハンドリング.
+      # res が0件の場合の処理.
       def show
         res = get_request(params[:latitude], params[:longitude], params[:range], params[:late_lunch])
 
-        res_body_json = JSON.parse(res.body) #TODO 0件の時を考慮した処理.
+        res_body_json = JSON.parse(res.body)
 
         restaurant = res_body_json["rest"].sample.select { |key| KEY_LIST.include?(key) }
 
@@ -29,42 +28,39 @@ module Api
 
       private
 
-        # TODO リファクタリング.
-        # やろうとしていること自体を見直すべきな気がする...
+        # キーが存在しない場合は、バリューをチェックせずエラーをあげる.
         def check_params
+          check_key
+          check_value
+        end
+
+        # パラメーターにキー自体が存在するかのチェック.
+        def check_key
           missing_items = Array.new
 
-          if !params.has_key?(:latitude)
-            missing_items.push("latitude")
-          elsif params[:latitude].blank?
-            missing_items.push("latitude")
-          else
-          end
-
-          if !params.has_key?(:longitude)
-            missing_items.push("longitude")
-          elsif params[:longitude].blank?
-            missing_items.push("longitude")
-          else
-          end
-
-          if !params.has_key?(:range)
-            missing_items.push("range")
-          elsif params[:range].blank?
-            missing_items.push("range")
-          else
-          end
-
-          if !params.has_key?(:late_lunch)
-            missing_items.push("late_lunch")
-          elsif params[:late_lunch].blank?
-            missing_items.push("late_lunch")
-          else
-          end
+          missing_items.push("latitude") unless params.has_key?(:latitude)
+          missing_items.push("longitude") unless params.has_key?(:longitude)
+          missing_items.push("range") unless params.has_key?(:range)
+          missing_items.push("late_lunch") unless params.has_key?(:late_lunch)
 
           return if missing_items.blank?
 
-          raise ParameterMissingError.new(missing_items)
+          raise ParameterKeyMissingError.new(missing_items)
+        end
+
+        # パラメーターにバリューが存在するかのチェック.
+        # 先にキーの存在を確認してから実施しないとエラーになるので気をつける.
+        def check_value
+          missing_items = Array.new
+
+          missing_items.push("latitude") if params[:latitude].blank?
+          missing_items.push("longitude") if params[:longitude].blank?
+          missing_items.push("range") if params[:range].blank?
+          missing_items.push("late_lunch") if params[:late_lunch].blank?
+
+          return if missing_items.blank?
+
+          raise ParameterValueMissingError.new(missing_items)
         end
 
     end
