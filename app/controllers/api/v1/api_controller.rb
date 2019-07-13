@@ -8,6 +8,7 @@ module Api
       # 共通エラーハンドリング.
       # error: エラーオブジェクト.
       def handle_error(error = nil)
+
         if error.blank?
           Rails.logger.fatal("#{self.class.name}: [予期しないエラー]. params: #{params.inspect}")
           error = ApiError.new
@@ -20,6 +21,7 @@ module Api
         end
 
         render(status: error.response_http_status, json: error.create_response_body)
+
       end
 
     end
@@ -48,9 +50,11 @@ module Api
         @response_status = response_status
         @response_message = response_message
         @response_errors = response_errors
+
       end
 
       def create_response_body
+
         {
           result: {
             status: @response_status 
@@ -61,6 +65,7 @@ module Api
             details: @response_errors
           }
         }
+
       end
 
     end
@@ -71,15 +76,20 @@ module Api
       # コンストラクタ
       # missing_items: 不足しているパラメーターキー.
       def initialize(missing_items)
+
         response_status = 1
         response_message = create_response_message(missing_items)
+
         super("[パラメーターキー不足エラー]", 400, response_status, response_message)
+
       end
 
       private
 
         def create_response_message(missing_items)
+
           "[key = #{missing_items.join(', ')}] was not found."
+
         end
 
     end
@@ -90,15 +100,20 @@ module Api
       # コンストラクタ
       # missing_items: 不足しているパラメーターバリュー.
       def initialize(missing_items)
+
         response_status = 1
         response_message = create_response_message(missing_items)
+
         super("[パラメーターバリュー不足エラー]", 400, response_status, response_message)
+
       end
 
       private
 
         def create_response_message(missing_items)
+
           "[value = #{missing_items.join(', ')}] is blank."
+
         end
 
     end
@@ -109,8 +124,11 @@ module Api
       # コンストラクタ
       # error: ぐるなびApiのerror オブジェクト.
       def initialize(error)
+
         response_status = 1
+
         super(error["message"], error["code"], response_status, "Restaurant was not found.")
+
       end
 
     end
@@ -122,9 +140,12 @@ module Api
       # コンストラクタ
       # error: ぐるなびApiのerror オブジェクト.
       def initialize(errors)
+
         message = "パラメーター不正エラー"
         response_status = 1
+
         super(message, 400, response_status, "Parameters is invalid.")
+
       end
 
     end
@@ -143,10 +164,13 @@ module Api
       # errors: ActiveRecordのerrors オブジェクト.
       # e: ActiveRecord::RecordInvalid オブジェクト.
       def initialize(errors, e = nil)
+
         message = e.present? ? e.message : "[バリデーションエラー]"
         response_status = 1
         response_errors = create_response_errors(errors)
+
         super(message, 400, response_status, "Parameters is invalid", response_errors)
+
       end
 
       private
@@ -187,9 +211,12 @@ module Api
       # value: keyと紐づくvalue.
       # e: ActiveRecord::RecordNotFound オブジェクト.
       def initialize(key, value, e = nil)
+
         message = e.present? ? e.message : "[レコード未検出エラー]"
         response_status = 1
+
         super(message, 404, response_status, "[#{key} = #{value}] was not found.")
+
       end
 
     end
