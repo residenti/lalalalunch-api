@@ -103,14 +103,30 @@ module Api
 
     end
 
-    # TODO Define GnaviApiError.
-    # 400: 不正なパラメータが指定された
-    # 401: 不正なアクセス（認証エラー）
-    # 404: 指定された店舗の情報が存在しない
-    # 405: 不正なアクセス
-    # 429: リクエスト回数上限超過
-    # 500: 処理中にエラーが発生した
-    class GnaviApiError < ApiError
+    # 指定された店舗の情報が存在しないエラー.
+    class RestaurantNotFoundError < ApiError
+
+      # コンストラクタ
+      # error: ぐるなびApiのerror オブジェクト.
+      def initialize(error)
+        response_status = 1
+        super(error["message"], error["code"], response_status, "Restaurant was not found.")
+      end
+
+    end
+
+    # TODO パラメーターエラー系の識別をクライアント側で行えないので修正が必要.
+    # 不正なパラメータが指定されたエラー.
+    class InvalidParameterError < ApiError
+
+      # コンストラクタ
+      # error: ぐるなびApiのerror オブジェクト.
+      def initialize(errors)
+        message = "パラメーター不正エラー"
+        response_status = 1
+        super(message, 400, response_status, "Parameters is invalid.")
+      end
+
     end
 
     # バリデーションエラー.

@@ -20,8 +20,15 @@ module Api
           restaurant = res_body_json["rest"].sample.select { |key| KEY_LIST.include?(key) }
 
           render(status: :ok, json: { result: { status: 0 }, restaurant: restaurant })
+        when Net::HTTPBadRequest
+          res_body_json = JSON.parse(res.body)
+          raise InvalidParameterError.new(res_body_json["error"])
+        when Net::HTTPNotFound
+          res_body_json = JSON.parse(res.body)
+          raise RestaurantNotFoundError.new(res_body_json["error"][0])
         else
-          raise GnaviApiError.new(res)
+          res_body_json = JSON.parse(res.body)
+          raise ApiError.new(res_body_json["error"][0]["message"])
         end
       end
 
