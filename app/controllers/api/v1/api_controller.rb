@@ -103,6 +103,16 @@ module Api
 
     end
 
+    # TODO Define GnaviApiError.
+    # 400: 不正なパラメータが指定された
+    # 401: 不正なアクセス（認証エラー）
+    # 404: 指定された店舗の情報が存在しない
+    # 405: 不正なアクセス
+    # 429: リクエスト回数上限超過
+    # 500: 処理中にエラーが発生した
+    class GnaviApiError < ApiError
+    end
+
     # バリデーションエラー.
     class ValidationError < ApiError
 

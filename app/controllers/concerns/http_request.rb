@@ -11,7 +11,7 @@ module HttpRequest
   }.freeze
 
   def get_request(latitude, longitude, range, late_lunch)
-    # hash形式でパラメタ文字列を指定し、URL形式にエンコード
+    # hash形式でパラメタ文字列を指定し、URL形式にエンコード.
     params = URI.encode_www_form(
       {
         keyid: GNAVI_API_PARAMS[:KEYID],
@@ -29,7 +29,7 @@ module HttpRequest
 
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true # https通信を許可.
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE # 証明書なんたらかんたら...
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE # 証明書の検証を行わない.
 
     http.get(uri.request_uri)
   end

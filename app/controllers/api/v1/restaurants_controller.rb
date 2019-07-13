@@ -11,19 +11,18 @@ module Api
         "holiday", "parking_lots", "pr", "lunch", "credit_card", "e_money"
       ]
 
-      # TODO
-      # res が0件の場合の処理.
       def show
         res = get_request(params[:latitude], params[:longitude], params[:range], params[:late_lunch])
 
-        res_body_json = JSON.parse(res.body)
+        case res
+        when Net::HTTPOK
+          res_body_json = JSON.parse(res.body)
+          restaurant = res_body_json["rest"].sample.select { |key| KEY_LIST.include?(key) }
 
-        restaurant = res_body_json["rest"].sample.select { |key| KEY_LIST.include?(key) }
-
-        render(status: :ok, json: { result: { status: 0 }, restaurant: restaurant })
-
-      # rescue ActiveRecord::RecordNotFound => e
-      #   raise RecordNotFoundError.new('id' ,1)
+          render(status: :ok, json: { result: { status: 0 }, restaurant: restaurant })
+        else
+          raise GnaviApiError.new(res)
+        end
       end
 
       private
