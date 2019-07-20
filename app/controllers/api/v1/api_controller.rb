@@ -3,7 +3,23 @@ module Api
 
     class ApiController < ActionController::API
 
+      include ActionController::HttpAuthentication::Token::ControllerMethods
+
+      before_action :authenticate
       rescue_from Exception, with: :handle_error
+
+      def authenticate
+        raise UnauthorizedError.new unless authenticate_token
+      end
+
+      def authenticate_token
+
+        authenticate_with_http_token do |token, options|
+          user = User.find_by(access_token: token)
+          user.present? && user.access_token_expired_at >= Time.now
+        end
+
+      end
 
       # 共通エラーハンドリング.
       # error: エラーオブジェクト.
@@ -65,6 +81,20 @@ module Api
             details: @response_errors
           }
         }
+
+      end
+
+    end
+
+    # TODO 無効なトークンか、有効期限切れかで返却する内容を変える.
+    class UnauthorizedError < ApiError
+
+      # コンストラクタ
+      def initialize()
+
+        response_status = 1
+
+        super("認証エラー", 401, response_status, "Unauthorized Error.")
 
       end
 
