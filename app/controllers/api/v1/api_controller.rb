@@ -1,7 +1,7 @@
 module Api
   module V1
 
-    class ApiController < ApplicationController
+    class ApiController < ActionController::API
 
       rescue_from Exception, with: :handle_error
 
