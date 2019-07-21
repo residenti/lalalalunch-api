@@ -5,7 +5,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
     create_table :users do |t|
       ## Self define.
       t.string :access_token, null: false
-      t.datetime :access_token_expired_at, null: false, default: -> { 'NOW()' }
+      t.datetime :access_token_expired_at, null: false
 
       ## Database authenticatable
       t.string :email,              null: false, default: ""

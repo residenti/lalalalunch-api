@@ -31,5 +31,15 @@ module LalalalunchApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = false
+
+    # Affects ActiveSupport::TimeWithZone.
+    # ActiveRecord date and time fields (such as created_at) are affected by this class.
+    # Time.current Time.zone.now Time.zone.local is also affected by this class.
+    # Rails defaults to "UTC".
+    config.time_zone = 'Tokyo'
+    # Affects the time to read and write to DB.
+    # Which time zone is the time written in the DB interpreted.
+    # When writing time to DB, which time zone do you want to convert and write.
+    config.active_record.default_timezone = :local
   end
 end

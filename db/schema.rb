@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2019_07_15_043543) do
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "access_token", null: false
-    t.datetime "access_token_expired_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "access_token_expired_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"

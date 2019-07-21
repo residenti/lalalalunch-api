@@ -16,7 +16,7 @@ module Api
 
         authenticate_with_http_token do |token, options|
           user = User.find_by(access_token: token)
-          user.present? && user.access_token_expired_at >= Time.now
+          user.present? && user.access_token_expired_at >= DateTime.now
         end
 
       end
