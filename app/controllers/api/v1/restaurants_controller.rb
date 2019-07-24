@@ -13,7 +13,7 @@ module Api
 
       def show
 
-        res = get_request(params[:latitude], params[:longitude], params[:range], params[:late_lunch])
+        res = get_restaurant(params[:latitude], params[:longitude], params[:range], params[:late_lunch])
 
         case res
         when Net::HTTPOK

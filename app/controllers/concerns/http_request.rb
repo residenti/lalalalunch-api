@@ -10,7 +10,7 @@ module HttpRequest
     LUNCH: 1
   }.freeze
 
-  def get_request(latitude, longitude, range, late_lunch)
+  def get_restaurant(latitude, longitude, range, late_lunch)
 
     # hash形式でパラメタ文字列を指定し、URL形式にエンコード.
     params = URI.encode_www_form(
