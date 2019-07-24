@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-  before_save { self.access_token_expired_at = DateTime.now + 3.month }
+  before_create { self.access_token_expired_at = DateTime.now + 3.month }
 
   has_secure_token :access_token
 
