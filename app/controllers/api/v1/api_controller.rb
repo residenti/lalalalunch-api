@@ -9,15 +9,13 @@ module Api
       rescue_from Exception, with: :handle_error
 
       def authenticate
-        raise UnauthorizedError.new unless authenticate_token
-      end
 
-      def authenticate_token
-
-        authenticate_with_http_token do |token, options|
-          user = User.find_by(access_token: token)
-          user.present? && user.access_token_expired_at >= DateTime.now
+        user = authenticate_with_http_token do |token, options|
+          User.find_by(access_token: token)
         end
+
+        raise UnauthorizedError.new("Invalid Token.") if user.blank?
+        raise UnauthorizedError.new("Expired Token.") if user.access_token_expired_at < DateTime.now
 
       end
 
@@ -90,11 +88,12 @@ module Api
     class UnauthorizedError < ApiError
 
       # コンストラクタ
-      def initialize()
+      def initialize(message)
 
         response_status = 1
+        response_message = message
 
-        super("認証エラー", 401, response_status, "Unauthorized Error.")
+        super("認証エラー", 401, response_status, response_message)
 
       end
 
