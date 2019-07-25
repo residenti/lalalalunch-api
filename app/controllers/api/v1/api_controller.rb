@@ -84,7 +84,7 @@ module Api
 
     end
 
-    # TODO 無効なトークンか、有効期限切れかで返却する内容を変える.
+    # トークン認証エラー.
     class UnauthorizedError < ApiError
 
       # コンストラクタ
