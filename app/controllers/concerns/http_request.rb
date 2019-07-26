@@ -11,7 +11,6 @@ module HttpRequest
   }.freeze
 
   def get_restaurant(latitude, longitude, range, late_lunch)
-
     # hash形式でパラメタ文字列を指定し、URL形式にエンコード.
     params = URI.encode_www_form(
       {
@@ -33,7 +32,6 @@ module HttpRequest
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE # 証明書の検証を行わない.
 
     http.get(uri.request_uri)
-
   end
 
 end

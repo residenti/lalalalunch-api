@@ -12,13 +12,11 @@ module Api
       ]
 
       def show
-
         res = get_restaurant(params[:latitude], params[:longitude], params[:range], params[:late_lunch])
 
         case res
         when Net::HTTPOK
           restaurant = JSON.parse(res.body)["rest"].sample.select { |key| KEY_LIST.include?(key) }
-
           render(status: :ok, json: { result: { status: 0 }, restaurant: restaurant })
         when Net::HTTPBadRequest
           raise InvalidParameterError.new(JSON.parse(res.body)["error"])
@@ -27,22 +25,18 @@ module Api
         else
           raise ApiError.new(JSON.parse(res.body)["error"][0]["message"])
         end
-
       end
 
       private
 
         # キーが存在しない場合は、バリューをチェックせずエラーをあげる.
         def check_params
-
           check_key
           check_value
-
         end
 
         # パラメーターにキー自体が存在するかのチェック.
         def check_key
-
           missing_items = Array.new
 
           missing_items.push("latitude") unless params.has_key?(:latitude)
@@ -53,13 +47,11 @@ module Api
           return if missing_items.blank?
 
           raise ParameterKeyMissingError.new(missing_items)
-
         end
 
         # パラメーターにバリューが存在するかのチェック.
         # 先にキーの存在を確認してから実施しないとエラーになるので気をつける.
         def check_value
-
           missing_items = Array.new
 
           missing_items.push("latitude") if params[:latitude].blank?
@@ -70,7 +62,6 @@ module Api
           return if missing_items.blank?
 
           raise ParameterValueMissingError.new(missing_items)
-
         end
 
     end
