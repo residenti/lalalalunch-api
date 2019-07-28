@@ -7,10 +7,29 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
-    <%= yield %>
-
+    <header>
+      <div id="header-wrap">
+        <h1>
+          <%= link_to "らららランチ API", root_path %>
+        </h1>
+        <nav>
+          <li><%= link_to "API仕様", manual_path %></li>
+          <li><%= link_to "新規アカウント発行", new_user_registration_path %></li>
+          <% if user_signed_in? %>
+            <li><%= link_to "マイページ", root_path %></li>
+          <% else %>
+            <li><%= link_to "ログイン", new_user_session_path %></li>
+          <% end %>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    </main>
+    <footer>
+      <p>Copyright&copy; residenti. Inc., All rights reserved.</p>
+    </footer>
   </body>
 </html>
