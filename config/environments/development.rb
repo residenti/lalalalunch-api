@@ -44,7 +44,7 @@ Rails.application.configure do
     :address => "smtp.gmail.com",
     :port => 587,
     :user_name => "lalalalunch.api@gmail.com",
-    :password => SECRET_SETTINGS[:mail_password], # TODO 定数の定義が間に合わずにエラーになる.
+    :password => ENV['GMAIL_PASSWORD'],
     :authentication => :plain,
     :enable_starttls_auto => true
   }
