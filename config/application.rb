@@ -41,5 +41,8 @@ module LalalalunchApi
     # Which time zone is the time written in the DB interpreted.
     # When writing time to DB, which time zone do you want to convert and write.
     config.active_record.default_timezone = :local
+
+    # Japanese language support.
+    config.i18n.default_locale = :ja
   end
 end
