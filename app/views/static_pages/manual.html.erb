@@ -1,2 +1,253 @@
-<h1>StaticPages#manual</h1>
-<p>Find me in app/views/static_pages/manual.html.erb</p>
+<div id="manual-content">
+  <h2>
+    <span class="weight-bold">URL: </span>https://lalalalunch.co.jp/api/v1/
+  </h2>
+  <section>
+    <h3>リクエストパラメーター</h3>
+    <table border=1>
+      <colgroup>
+        <col width="20%">
+        <col width="8%">
+        <col width="10%">
+        <col width="20%">
+        <col width="42%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="api-table__th">パラメータ名</th>
+          <th class="api-table__th">必須</th>
+          <th class="api-table__th">型</th>
+          <th class="api-table__th">説明</th>
+          <th class="api-table__th">備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>latitude</td>
+          <td align="center">○</td>
+          <td>integer</td>
+          <td>緯度</td>
+          <td>分秒十進式</td>
+        </tr>
+        <tr>
+          <td>longitude</td>
+          <td align="center">○</td>
+          <td>integer</td>
+          <td>経度</td>
+          <td>分秒十進式</td>
+        </tr>
+        <tr>
+          <td>range</td>
+          <td align="center">○</td>
+          <td>integer</td>
+          <td>検索範囲</td>
+          <td>
+            緯度/経度からの検索範囲(半径)<br>
+            1:300m、2:500m、3:1000m、4:2000m、5:3000m
+          </td>
+        </tr>
+        <tr>
+          <td>late_lunch</td>
+          <td align="center">○</td>
+          <td>integer</td>
+          <td>14時以降のランチあり</td>
+          <td>0:絞込みなし、1：絞込みあり</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h3>レスポンス</h3>
+    <table border=1>
+      <thead>
+        <tr>
+          <th colspan="5">パラメータ名</th>
+          <th width="7%">出現回数</th>
+          <th width="10%">型</th>
+          <th width="25%">説明</th>
+          <th width="30%">備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="5">result</td>
+          <td align="center">1</td>
+          <td align="center">object</td>
+          <td>処理結果情報</td>
+          <td>処理結果情報を保持するオブジェクト</td>
+        </tr>
+        <tr>
+          <td colspan="5">restaurant</td>
+          <td align="center">1</td>
+          <td align="center">object</td>
+          <td>店舗情報</td>
+          <td>処理結果情報のステータスコードが「正常終了」のときのみ返却される</td>
+        </tr>
+        <tr>
+          <td width="4%" rowspan="25"></td>
+
+          <td colspan="4">name</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td>名称</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">name_kana</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td>名称(カタカナ)</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">latitude</td>
+          <td align="center">1</td>
+          <td align="center">integer</td>
+          <td>緯度</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">longitude</td>
+          <td align="center">1</td>
+          <td align="center">integer</td>
+          <td>経度</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">category</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td>フリーワードカテゴリー</td>
+          <td>ex. シーフード料理</td>
+        </tr>
+        <tr>
+          <td colspan="4">url</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">url_mobile</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">coupon_url</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td width="4%" rowspan="2"></td>
+
+          <td colspan="3">pc</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="3">mobile</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">image_url</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td width="4%" rowspan="3"></td>
+
+          <td colspan="3">shop_image1</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="3">shop_image2</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="3">qrcode</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">address</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">tel</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">opentime</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">holiday</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">parking_lots</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="4">pr</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td width="4%" rowspan="3"></td>
+
+          <td colspan="3">pr_short</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="3">pr_long</td>
+          <td align="center">1</td>
+          <td align="center">string</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
