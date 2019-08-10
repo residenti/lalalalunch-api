@@ -1,5 +1,4 @@
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p>らららランチAPIをご利用いただきありがとうございます。</p>
+<p>ユーザー登録用メールアドレスとしてあなたのメールアドレス(<%= @email %>)が使用されました。</p>
+<p>登録するアドレスがこちらのメールアドレスで間違いないことを確認するため、登録の手続きを完了させて下さい。</p>
+<p><%= link_to '登録を完了する', confirmation_url(@resource, confirmation_token: @token) %></p>
