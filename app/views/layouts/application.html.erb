@@ -16,7 +16,7 @@
           <li><%= link_to "API仕様", manual_path %></li>
           <li><%= link_to "新規アカウント発行", new_user_registration_path %></li>
           <% if user_signed_in? %>
-            <li><%= link_to "マイページ", root_path %></li>
+            <li><%= link_to "マイページ", mypage_path %></li>
           <% else %>
             <li><%= link_to "ログイン", new_user_session_path %></li>
           <% end %>

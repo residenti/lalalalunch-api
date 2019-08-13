@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'static_pages#welcom'
   get 'manual', to: 'static_pages#manual'
 
+  get 'mypage', to: 'users#show'
 
   devise_for :users, :controllers => {
     :sessions      => "users/sessions",
