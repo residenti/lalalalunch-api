@@ -26,6 +26,14 @@ footer {
     color: #767676;
   }
 }
+table {
+  border-collapse: collapse;
+  border:1px solid #333;
+  width: 100%;
+}
+td {
+  padding: 8px;
+}
 #header-wrap {
   display: grid;
   grid-template-columns: 1fr 200px;
