@@ -10,6 +10,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable
 
+  # TODO バリデーションの追加: 半角英数字(小文字)
   validates :userid, presence: true, uniqueness: true, length: { maximum: 20 }
 
 end

@@ -11,6 +11,7 @@ ja:
         userid: ユーザーID
         password: パスワード
         password_confirmation: パスワード確認
+        current_password: 現在のパスワード
         email: メールアドレス
   date:
     abbr_day_names:

@@ -40,3 +40,13 @@ td {
   grid-template-areas:
   "h1 nav";
 }
+.label {
+  color: #565656;
+  font-size: 75%;
+  padding-left: 5px;
+}
+.require-label {
+  color: red;
+  font-size: 75%;
+  padding-left: 5px;
+}
