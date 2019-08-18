@@ -24,8 +24,10 @@
             <%= f.label :email %>
             <span class="require-label">必須</span>
           </th>
-          <td><%= f.email_field :email, autocomplete: "email" %></td>
-          <!-- TODO 確認用email入力欄 -->
+          <td>
+            <div><%= f.email_field :email, autocomplete: "email" %></div>
+            <div><%= f.email_field :email_confirmation, autocomplete: "email" %><span class="p-l-5 label">確認用</span></div>
+          </td>
         </tr>
         <tr>
           <th><%= f.label :password %></th>

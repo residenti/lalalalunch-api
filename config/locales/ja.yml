@@ -10,9 +10,10 @@ ja:
       user:
         userid: ユーザーID
         password: パスワード
-        password_confirmation: パスワード確認
+        password_confirmation: 確認用パスワード
         current_password: 現在のパスワード
         email: メールアドレス
+        email_confirmation: 確認用メールアドレス
   date:
     abbr_day_names:
     - 日

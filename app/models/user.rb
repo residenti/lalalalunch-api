@@ -10,7 +10,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable
 
-  # TODO バリデーションの追加: 半角英数字(小文字)
-  validates :userid, presence: true, uniqueness: true, length: { maximum: 20 }
+  validates :userid, presence: true, uniqueness: true, length: { maximum: 20 }, format: { with: /\A[a-z0-9]+\z/, message: "半角英数(小文字)のみが使えます" }
+  validates :email, confirmation: true
+  validates :email_confirmation, presence: true
 
 end
