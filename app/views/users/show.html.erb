@@ -1,6 +1,6 @@
 <div id="mypage-content">
   <section>
-    <h2>マイページ</h2>
+    <h1>マイページ</h1>
     <table border=1>
       <tr>
         <th>ユーザーID</th>
@@ -15,6 +15,8 @@
         <td><%= @user.access_token %></td>
       </tr>
     </table>
-    <%= link_to "変更", edit_user_registration_path %>
+    <div class="mt-30 tac">
+      <%= link_to "変更", edit_user_registration_path, class: "btn" %>
+    </div>
   </section>
 </div>
