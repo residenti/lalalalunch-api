@@ -11,7 +11,7 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable, :trackable
 
   validates :userid, presence: true, uniqueness: true, length: { maximum: 20 }, format: { with: /\A[a-z0-9]+\z/, message: "半角英数(小文字)のみが使えます" }
+  # email_confirmationがnilでない場合のみ一致することを確認する.
   validates :email, confirmation: true
-  validates :email_confirmation, presence: true
 
 end
