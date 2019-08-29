@@ -17,6 +17,8 @@ gem 'devise'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+# Nokogiri (鋸) is a Rubygem providing HTML, XML, SAX, and Reader parsers with XPath and CSS selector support.
+gem "nokogiri", ">= 1.10.4"
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
