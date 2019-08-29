@@ -18,6 +18,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :email_confirmation %><br />
+    <%= f.email_field :email_confirmation, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %>文字以上で入力して下さい)</em>
