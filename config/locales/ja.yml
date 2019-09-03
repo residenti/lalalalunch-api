@@ -16,6 +16,7 @@ ja:
         current_password: 現在のパスワード
         email: メールアドレス
         email_confirmation: 確認用メールアドレス
+        remember_me: ログイン情報を保持する
   date:
     abbr_day_names:
     - 日
