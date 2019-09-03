@@ -19,6 +19,11 @@ class Users::SessionsController < Devise::SessionsController
     super
   end
 
+  # The default url to be used after signing in.
+  def after_sign_in_path_for(resource)
+    mypage_path
+  end
+
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
