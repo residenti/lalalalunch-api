@@ -5,7 +5,7 @@ module Api
       include ActionController::HttpAuthentication::Token::ControllerMethods
 
       before_action :authenticate
-      rescue_from Exception, with: :handle_error
+      rescue_from StandardError, with: :handle_error
 
       def authenticate
         user = authenticate_with_http_token do |token, options|
